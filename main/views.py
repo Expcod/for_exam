@@ -4,16 +4,28 @@ from . import models
 
 def index(request):
 
-    service = models.Services.objects.all()
+    services = models.Services.objects.all()
     contact = models.Contact.objects.all()
     technicians = models.Technicians.objects.all()
     comments = models.Comments.objects.all()
+    booking = models.Booking.objects.all()
 
+    if request.method == 'POST':
+        models.Booking.objects.create(
+            name = request.POST['name'],
+            email = request.POST['email'],
+            select = request.POST['select'],
+            message = request.POST['message'],
+            date = request.POST['date']
+        )
+        return redirect('index')
+    
     context ={
-        'service':service,
+        'services':services,
         'contact':contact,
         'technicians':technicians,
-        'comments':comments            
+        'comments':comments,            
+        'booking':booking            
     }
     return render(request,'index.html',context)
 
@@ -32,5 +44,25 @@ def about(request):
     return render(request,'about.html')
 
 def service(request):
-    return render(request,'service.html')
- 
+    services = models.Services.objects.all()
+    context ={
+        'services':services
+    }
+    
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        select = request.POST['select']
+        message = request.POST['message']
+        date = request.POST['date']
+        models.Booking.objects.create(
+        name = name,
+        email = email,
+        select = select,
+        message = message,
+        date = date
+        )
+        
+        
+        return redirect('index')
+    return render(request,'service.html',context)

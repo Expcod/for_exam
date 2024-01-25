@@ -1,9 +1,7 @@
 from django.db import models
 
 class Services(models.Model):
-    caption = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
-    icon = models.ImageField()
     picture = models.ImageField()
     title = models.CharField(max_length=255)
     body = models.TextField()
@@ -58,7 +56,7 @@ class Booking(models.Model):
     email = models.EmailField(null=True)
     date = models.DateField(auto_now_add=True)
     message = models.TextField()
-    select = models.IntegerField()
+    select = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
