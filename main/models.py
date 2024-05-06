@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Services(models.Model):
     name = models.CharField(max_length=255)
     picture = models.ImageField()
@@ -12,8 +13,8 @@ class Services(models.Model):
     def __str__(self):
         return self.name
 
+
 class Contact(models.Model):
-    
     name = models.CharField(max_length=255)
     email = models.EmailField(null=True)
     phone = models.CharField(max_length=13)
@@ -51,7 +52,6 @@ class Comments(models.Model):
         ordering = ("-id",)
 
 class Booking(models.Model):
-    
     name = models.CharField(max_length=255)
     email = models.EmailField(null=True)
     date = models.DateField(auto_now_add=True)
